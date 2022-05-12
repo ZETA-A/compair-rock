@@ -48,7 +48,7 @@ async function predict() {
         const classPrediction =
             prediction[i].className +
             ": " +
-            prediction[i].probability.toFixed(2);
+            prediction[i].probability.toFixed(2) * 100 + '%';
         labelContainer.childNodes[i].innerHTML = classPrediction;
     }
 }
