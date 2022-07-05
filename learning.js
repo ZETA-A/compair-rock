@@ -4,13 +4,13 @@
 // the link to your model provided by Teachable Machine export panel
 const URL = "./my_model/";
 
-let model, webcam, labelContainer, maxPredictions, webcamContainer;
+let model, webcam, labelContainer, maxPredictions, selectMenu;
 
 // Load the image model and setup the webcam
 async function init() {
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
-    webcamContainer = document.getElementById("webcam-container");
+    selectMenu = document.getElementById("select-menu");
 
     // load the model and metadata
     // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
@@ -18,7 +18,7 @@ async function init() {
     // Note: the pose library adds "tmImage" object to your window (window.tmImage)
     model = await tmImage.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
-    if (webcamContainer.value === "video") {
+    if (selectMenu.value === "video") {
         // Convenience function to setup a webcam
         const flip = true; // whether to flip the webcam
         webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
@@ -39,7 +39,7 @@ async function init() {
 }
 
 async function loop() {
-    if (webcamContainer === "video") {
+    if (selectMenu === "video") {
         webcam.update(); // update the webcam frame
         await predict();
         window.requestAnimationFrame(loop);
@@ -52,7 +52,7 @@ async function loop() {
 // run the webcam image through the image model
 async function predict() {
     let prediction;
-    if (webcamContainer === "video") {
+    if (selectMenu === "video") {
         prediction = await model.predict(webcam.canvas);
     } else {
         prediction = await model.predict(
