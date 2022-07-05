@@ -25,7 +25,7 @@ https://earthproject.kro.kr
 역암, 사암, 이암, 응회암, 화강암, 석회암, 처트
 
 ## **지원기기**
-[지원기기 확인](https://github.com/ZETA-A/compair-rock/blob/main/supportDevice.md)
+지원기기 확인
 
 ## **이용약관**
 교육적 목적으로 사용한다면, 출처만 남기고 사용하시면 됩니다.   
