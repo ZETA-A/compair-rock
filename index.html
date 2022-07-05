@@ -21,9 +21,7 @@
                 <div id="center-div">
                     <select id="select-menu">
                         <option value="empty">옵션을 선택해주세요</option>
-                        <option value="picture">
-                            사진으로 비교하기(개발 중)
-                        </option>
+                        <option value="picture">사진으로 비교하기(베타)</option>
                         <option value="video">카메라로 비교하기</option>
                     </select>
                 </div>
@@ -45,7 +43,7 @@
                         id="loadBtn"
                         type="file"
                         accept="image/*"
-                        onclick="loadFile(event)"
+                        onchange="loadFile(event)"
                         disabled
                     />
                 </div>
