@@ -3,7 +3,7 @@
 
 // the link to your model provided by Teachable Machine export panel
 const URL = "./my_model/";
-let webcamContainer = document.getElementById("webcam-container");
+const webcamContainer = document.getElementById("webcam-container");
 
 let model, webcam, labelContainer, maxPredictions;
 
