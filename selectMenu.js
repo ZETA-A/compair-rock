@@ -5,8 +5,8 @@ const loadBtn = document.getElementById("loadBtn");
 const labelBtn = document.getElementById("labelBtn");
 
 selectMenu.addEventListener("change", (event) => {
+    console.log(event.target.value);
     let eventTargetValue = event.target.value;
-    console.log(eventTargetValue);
     if (event.target.value === "picture") {
         description.innerHTML = "불러오기를 눌러 사진을 가져오세요!";
         loadBtn.removeAttribute("disabled");
