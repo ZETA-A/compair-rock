@@ -39,7 +39,7 @@ async function init() {
 }
 
 async function loop() {
-    if (selectMenu === "video") {
+    if (selectMenu.value === "video") {
         webcam.update(); // update the webcam frame
         await predict();
         window.requestAnimationFrame(loop);
@@ -52,7 +52,7 @@ async function loop() {
 // run the webcam image through the image model
 async function predict() {
     let prediction;
-    if (selectMenu === "video") {
+    if (selectMenu.value === "video") {
         prediction = await model.predict(webcam.canvas);
     } else {
         prediction = await model.predict(
