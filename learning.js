@@ -3,14 +3,14 @@
 
 // the link to your model provided by Teachable Machine export panel
 const URL = "./my_model/";
-const webcamContainer = document.getElementById("webcam-container");
 
-let model, webcam, labelContainer, maxPredictions;
+let model, webcam, labelContainer, maxPredictions, webcamContainer;
 
 // Load the image model and setup the webcam
 async function init() {
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
+    webcamContainer = document.getElementById("webcam-container");
 
     // load the model and metadata
     // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
