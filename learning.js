@@ -53,9 +53,9 @@ async function loop() {
 async function predict() {
     let prediction;
     if (webcamContainer === "video") {
-        predict = await model.predict(webcam.canvas);
+        prediction = await model.predict(webcam.canvas);
     } else {
-        predict = await model.predict(
+        prediction = await model.predict(
             document.querySelector("webcam-container img")
         );
     }
