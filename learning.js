@@ -34,14 +34,19 @@ async function init() {
             labelContainer.appendChild(document.createElement("div"));
         }
     } else {
-        return;
+        window.requestAnimationFrame(loop);
     }
 }
 
 async function loop() {
-    webcam.update(); // update the webcam frame
-    await predict();
-    window.requestAnimationFrame(loop);
+    if (webcamContainer === "video") {
+        webcam.update(); // update the webcam frame
+        await predict();
+        window.requestAnimationFrame(loop);
+    } else {
+        await predict();
+        window.requestAnimationFrame(loop);
+    }
 }
 
 // run the webcam image through the image model
