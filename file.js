@@ -8,7 +8,6 @@ let loadFile = (event) => {
 
         function readSuccess(event) {
             console.log("리더 로드 완료");
-            let output = document.getElementById("webcam-container");
             let img = document.createElement("img");
             document.querySelector("div#webcam-container").appendChild(img);
             console.log(event.target.result);

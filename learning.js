@@ -3,6 +3,7 @@
 
 // the link to your model provided by Teachable Machine export panel
 const URL = "./my_model/";
+let webcamContainer = document.getElementById("webcam-container");
 
 let model, webcam, labelContainer, maxPredictions;
 
@@ -17,20 +18,23 @@ async function init() {
     // Note: the pose library adds "tmImage" object to your window (window.tmImage)
     model = await tmImage.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
+    if (webcamContainer.value === "video") {
+        // Convenience function to setup a webcam
+        const flip = true; // whether to flip the webcam
+        webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+        await webcam.setup(); // request access to the webcam
+        await webcam.play();
+        window.requestAnimationFrame(loop);
 
-    // Convenience function to setup a webcam
-    const flip = true; // whether to flip the webcam
-    webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
-    await webcam.setup(); // request access to the webcam
-    await webcam.play();
-    window.requestAnimationFrame(loop);
-
-    // append elements to the DOM
-    document.getElementById("webcam-container").appendChild(webcam.canvas);
-    labelContainer = document.getElementById("label-container");
-    for (let i = 0; i < maxPredictions; i++) {
-        // and class labels
-        labelContainer.appendChild(document.createElement("div"));
+        // append elements to the DOM
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) {
+            // and class labels
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    } else {
+        return;
     }
 }
 
@@ -42,13 +46,22 @@ async function loop() {
 
 // run the webcam image through the image model
 async function predict() {
+    let prediction;
+    if (webcamContainer === "video") {
+        predict = await model.predict(webcam.canvas);
+    } else {
+        predict = await model.predict(
+            document.querySelector("webcam-container img")
+        );
+    }
     // predict can take in an image, video or canvas html element
-    const prediction = await model.predict(webcam.canvas);
+
     for (let i = 0; i < maxPredictions; i++) {
         const classPrediction =
             prediction[i].className +
             ": " +
-            prediction[i].probability.toFixed(2) * 100 + '%';
+            prediction[i].probability.toFixed(2) * 100 +
+            "%";
         labelContainer.childNodes[i].innerHTML = classPrediction;
     }
 }
